@@ -1,5 +1,6 @@
 package com.ivoronline.springboot_db_datasource_savesameentitytodifferetnschema.controller;
 
+import com.ivoronline.springboot_db_datasource_savesameentitytodifferetnschema.config.DBContextHolder;
 import com.ivoronline.springboot_db_datasource_savesameentitytodifferetnschema.entity.Person;
 import com.ivoronline.springboot_db_datasource_savesameentitytodifferetnschema.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ public class MyController {
   @ResponseBody
   @GetMapping("/Hello")
   public Person hello() {
+    DBContextHolder.setCurrentDb(1);
     Person person = personRepository.save(new Person(0, "John"  , 22          ));
     return person;
   }
