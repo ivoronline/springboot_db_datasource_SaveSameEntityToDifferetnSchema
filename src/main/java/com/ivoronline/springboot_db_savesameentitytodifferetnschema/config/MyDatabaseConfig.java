@@ -25,7 +25,7 @@ import java.util.Properties;
   entityManagerFactoryRef = "multiEntityManager",
   transactionManagerRef   = "multiTransactionManager"
 )
-public class PersistenceConfiguration {
+public class MyDatabaseConfig {
 
   //PROPERTIES
   private final String ENTITY_PACKAGE = "com.ivoronline.springboot_db_savesameentitytodifferetnschema.entity";
