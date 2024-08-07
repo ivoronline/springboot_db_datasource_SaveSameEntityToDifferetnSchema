@@ -1,4 +1,4 @@
-package com.ivoronline.springboot_db_datasource_savesameentitytodifferetnschema;
+package com.ivoronline.springboot_db_savesameentitytodifferetnschema;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

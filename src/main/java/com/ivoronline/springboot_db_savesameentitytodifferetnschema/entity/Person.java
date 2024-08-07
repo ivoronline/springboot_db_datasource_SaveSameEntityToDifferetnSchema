@@ -1,4 +1,4 @@
-package com.ivoronline.springboot_db_datasource_savesameentitytodifferetnschema.entity;
+package com.ivoronline.springboot_db_savesameentitytodifferetnschema.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,7 +7,6 @@ import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.web.context.annotation.RequestScope;
 
 @Data
 @NoArgsConstructor

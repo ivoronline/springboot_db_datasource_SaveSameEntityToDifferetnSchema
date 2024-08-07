@@ -1,4 +1,4 @@
-package com.ivoronline.springboot_db_datasource_savesameentitytodifferetnschema.config;
+package com.ivoronline.springboot_db_savesameentitytodifferetnschema.config;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -21,14 +21,14 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-  basePackages            = "com.ivoronline.springboot_db_datasource_savesameentitytodifferetnschema.repository",
+  basePackages            = "com.ivoronline.springboot_db_savesameentitytodifferetnschema.repository",
   entityManagerFactoryRef = "multiEntityManager",
   transactionManagerRef   = "multiTransactionManager"
 )
 public class PersistenceConfiguration {
 
   //PROPERTIES
-  private final String PACKAGE_SCAN = "com.ivoronline.springboot_db_datasource_savesameentitytodifferetnschema.entity";
+  private final String ENTITY_PACKAGE = "com.ivoronline.springboot_db_savesameentitytodifferetnschema.entity";
   
   //=========================================================================================================
   // SCHEMA 1 DATA SOURCE
@@ -56,12 +56,12 @@ public class PersistenceConfiguration {
   public DataSource multiRoutingDataSource() {
   
       Map<Object, Object> targetDataSources = new HashMap<>();
-        targetDataSources.put(1, schema1DataSource());
-        targetDataSources.put(2, schema2DataSource());
+                          targetDataSources.put(1, schema1DataSource());
+                          targetDataSources.put(2, schema2DataSource());
       
       MultiRoutingDataSource multiRoutingDataSource = new MultiRoutingDataSource();
-        multiRoutingDataSource.setDefaultTargetDataSource(schema1DataSource());
-        multiRoutingDataSource.setTargetDataSources(targetDataSources);
+                             multiRoutingDataSource.setDefaultTargetDataSource(schema1DataSource());
+                             multiRoutingDataSource.setTargetDataSources(targetDataSources);
       
       return multiRoutingDataSource;
   }
@@ -73,10 +73,10 @@ public class PersistenceConfiguration {
   public LocalContainerEntityManagerFactoryBean multiEntityManager() {
   
       LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(multiRoutingDataSource());
-        em.setPackagesToScan(PACKAGE_SCAN);
-        em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        em.setJpaProperties(hibernateProperties());
+                                             em.setDataSource(multiRoutingDataSource());
+                                             em.setPackagesToScan(ENTITY_PACKAGE);
+                                             em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+                                             em.setJpaProperties(hibernateProperties());
       
       return em;
   }
@@ -87,7 +87,7 @@ public class PersistenceConfiguration {
   @Bean(name = "multiTransactionManager")
   public PlatformTransactionManager multiTransactionManager() {
       JpaTransactionManager transactionManager = new JpaTransactionManager();
-      transactionManager.setEntityManagerFactory(multiEntityManager().getObject());
+                            transactionManager.setEntityManagerFactory(multiEntityManager().getObject());
       return transactionManager;
   }
   
@@ -98,9 +98,9 @@ public class PersistenceConfiguration {
   @Bean(name = "dbSessionFactory")
   public LocalSessionFactoryBean dbSessionFactory() {
       LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
-      sessionFactoryBean.setDataSource(multiRoutingDataSource());
-      sessionFactoryBean.setPackagesToScan(PACKAGE_SCAN);
-      sessionFactoryBean.setHibernateProperties(hibernateProperties());
+                              sessionFactoryBean.setDataSource(multiRoutingDataSource());
+                              sessionFactoryBean.setPackagesToScan(ENTITY_PACKAGE);
+                              sessionFactoryBean.setHibernateProperties(hibernateProperties());
       return sessionFactoryBean;
   }
   
