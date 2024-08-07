@@ -9,7 +9,7 @@ public class MultiRoutingDataSource extends AbstractRoutingDataSource {
   //=========================================================================================================
   @Override
   protected Object determineCurrentLookupKey() {
-    return SchemaContext.getCurrentSchema();
+    return SchemaContext.getSchema();
   }
     
 }

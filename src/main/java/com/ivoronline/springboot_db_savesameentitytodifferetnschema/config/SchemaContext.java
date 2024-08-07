@@ -4,11 +4,11 @@ public class SchemaContext {
 
     private static final ThreadLocal<Integer> schema = new ThreadLocal<>();
     
-    public static void setCurrentSchema(Integer newSchema) {
+    public static void setSchema(Integer newSchema) {
         schema.set(newSchema);
     }
     
-    public static Integer getCurrentSchema() {
+    public static Integer getSchema() {
         return schema.get();
     }
     

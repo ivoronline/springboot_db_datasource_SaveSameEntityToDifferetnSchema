@@ -20,7 +20,7 @@ public class MyController {
   @ResponseBody
   @GetMapping("/hello")
   public Person hello() {
-    SchemaContext.setCurrentSchema(2);
+    SchemaContext.setSchema(2);
     Person person = personRepository.save(new Person(0, "John", 22));
     return person;
   }
