@@ -18,7 +18,7 @@ public class MyController {
   // MIX STATEMENTS
   //=========================================================================================================
   @ResponseBody
-  @GetMapping("/Hello")
+  @GetMapping("/hello")
   public Person hello() {
     DBContextHolder.setCurrentDb(2);
     Person person = personRepository.save(new Person(0, "John", 22));

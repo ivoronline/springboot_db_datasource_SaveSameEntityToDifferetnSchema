@@ -34,7 +34,7 @@ public class PersistenceConfiguration {
   // SCHEMA 1 DATA SOURCE
   //=========================================================================================================
   @Primary
-  @Bean(name = "schema1DataSource")
+  @Bean
   @ConfigurationProperties("schema1.spring.datasource")
   public DataSource schema1DataSource() {
       return DataSourceBuilder.create().type(HikariDataSource.class).build();
@@ -43,7 +43,7 @@ public class PersistenceConfiguration {
   //=========================================================================================================
   // SCHEMA 2 DATA SOURCE
   //=========================================================================================================
-  @Bean(name = "schema2DataSource")
+  @Bean
   @ConfigurationProperties("schema2.spring.datasource")
   public DataSource schema2DataSource() {
       return DataSourceBuilder.create().type(HikariDataSource.class).build();
@@ -52,7 +52,7 @@ public class PersistenceConfiguration {
   //=========================================================================================================
   // MULTI ROUTING DATA SOURCE
   //=========================================================================================================
-  @Bean(name = "multiRoutingDataSource")
+  @Bean
   public DataSource multiRoutingDataSource() {
   
       Map<Object, Object> targetDataSources = new HashMap<>();
@@ -69,22 +69,20 @@ public class PersistenceConfiguration {
   //=========================================================================================================
   // ENTITY MANAGER FACTORY BEAN
   //=========================================================================================================
-  @Bean(name = "multiEntityManager")
+  @Bean
   public LocalContainerEntityManagerFactoryBean multiEntityManager() {
-  
       LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
                                              em.setDataSource(multiRoutingDataSource());
                                              em.setPackagesToScan(ENTITY_PACKAGE);
                                              em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
                                              em.setJpaProperties(hibernateProperties());
-      
       return em;
   }
   
   //=========================================================================================================
   // TRANSACTION MANAGER
   //=========================================================================================================
-  @Bean(name = "multiTransactionManager")
+  @Bean
   public PlatformTransactionManager multiTransactionManager() {
       JpaTransactionManager transactionManager = new JpaTransactionManager();
                             transactionManager.setEntityManagerFactory(multiEntityManager().getObject());
@@ -95,7 +93,7 @@ public class PersistenceConfiguration {
   // SESSION FACTORY
   //=========================================================================================================
   @Primary
-  @Bean(name = "dbSessionFactory")
+  @Bean
   public LocalSessionFactoryBean dbSessionFactory() {
       LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
                               sessionFactoryBean.setDataSource(multiRoutingDataSource());
