@@ -18,7 +18,7 @@ public class MyController {
   // MIX STATEMENTS
   //=========================================================================================================
   @ResponseBody
-  @GetMapping("/hello")
+  @GetMapping("/Hello")
   public Person hello() {
     SchemaContext.setSchema(2);
     Person person = personRepository.save(new Person(0, "John", 22));
